@@ -11,7 +11,7 @@ public class GameMenu implements Game {
 		
 		while(true) {
 			System.out.println("-----------Game Start!-----------");
-			System.out.print("[1] Add\n[2] Subtract\n[3] Multiplication\n[4] Divide\n[5] View Records\n[6] Exit");
+			System.out.println("[1] Add\n[2] Subtract\n[3] Multiplication\n[4] Divide\n[5] View Records\n[6] Exit");
 			System.out.println("Choose an operation: ");
 			int choice = s.nextInt();
 			
