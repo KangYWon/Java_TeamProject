@@ -4,7 +4,7 @@ import java.util.*;
 public class GameRound {
 	private Arithmetic arithmetic;
 	private Records records;
-	private int operationNum, digits;
+	private int operationNum;
 	private Scanner s = new Scanner(System.in);
 	
 	public void createArithmetic() {
