@@ -27,9 +27,6 @@ public class GameMenu implements Game {
 				break;
 			}
 			
-			System.out.print("Enter the number of digits: ");
-			int digits = s.nextInt();
-			
 			Arithmetic arithmetic;
 			switch(choice) {
 			case 1:
