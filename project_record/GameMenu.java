@@ -11,16 +11,30 @@ public class GameMenu implements Game {
 		
 		while(true) {
 			System.out.println("-----------Game Start!-----------");
-			System.out.println("[1] Add\n[2] Subtract\n[3] Multiplication\n[4] Divide\n[5] View Records\n[6] Exit");
+			System.out.println("[1] Add\n[2] Subtract\n[3] Multiplication\n[4] Divide\n[5] View Records\n[0] Exit");
 			System.out.println("Choose an operation: ");
 			int choice = s.nextInt();
 			
 			if (choice == 5) {
 				records.displayRecords();
+				if (records.hasData()) {
+					System.out.println("Are you sure you want to clear all records? (yes/no)");
+			                String confirmation = s.nextLine();
+			                while (!confirmation.equalsIgnoreCase("yes") && !confirmation.equalsIgnoreCase("no")) {
+						System.out.println("Please enter 'yes' or 'no'.");
+			                    	confirmation = s.nextLine();
+			                }
+			                if (confirmation.equalsIgnoreCase("yes")) {
+			                    records.clearRecords();
+			                    System.out.println("All records have been cleared.");
+			                } else {
+			                    System.out.println("Clear records operation cancelled.");
+			                }
+				}
 				continue;
 			}
 			
-			if(choice ==6) {
+			if(choice ==0) {
 				System.out.println("Exiting the Game.");
 				System.out.println("Your total score: "+ totalScore);
 				System.out.println("GOOD BYE~");
