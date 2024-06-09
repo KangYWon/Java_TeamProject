@@ -45,6 +45,16 @@ public class Records {
     public int getTotalScore() {
         return totalScore;
     }
+     public void clearRecords() {
+    	totalScore = 0;
+        incorrectAnswers.clear();
+        saveRecords();
+    }
+    
+    public boolean hasData() {
+        return !incorrectAnswers.isEmpty();
+    }
+    
     private void saveRecords() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME))) {
             writer.write("TotalScore: " + totalScore + "\n");
