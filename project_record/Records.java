@@ -60,7 +60,7 @@ public class Records {
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
             String line = reader.readLine();
             if (line != null && line.startsWith("TotalScore:")) {
-                totalScore = Integer.parseInt(line.split(":")[1]);
+                totalScore = Integer.parseInt(line.split(":")[1].trim());
             }
             while ((line = reader.readLine()) != null) {
                 incorrectAnswers.add(line);
