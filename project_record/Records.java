@@ -1,7 +1,9 @@
 package TeamProject;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Scanner;
 
 public class Records {
     private static Records records;
@@ -45,7 +47,8 @@ public class Records {
     public int getTotalScore() {
         return totalScore;
     }
-     public void clearRecords() {
+    
+    public void clearRecords() {
     	totalScore = 0;
         incorrectAnswers.clear();
         saveRecords();
@@ -55,7 +58,7 @@ public class Records {
         return !incorrectAnswers.isEmpty();
     }
     
-    private void saveRecords() {
+    void saveRecords() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME))) {
             writer.write("TotalScore: " + totalScore + "\n");
             for (String question : incorrectAnswers) {
@@ -78,5 +81,9 @@ public class Records {
         } catch (IOException e) {
             System.out.println("Error loading records: " + e.getMessage());
         }
+    }
+
+    public List<String> getIncorrectAnswers() {
+        return incorrectAnswers;
     }
 }
