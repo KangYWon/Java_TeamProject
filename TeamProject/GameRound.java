@@ -48,11 +48,14 @@ public class GameRound {
 		System.out.print("Enter the number of digits: ");
 		int digits = -1;
 
-		while (digits < 0) {
+		while (digits < 1) {
 			try {
 				digits = s.nextInt();
+				if(digits < 1){
+					System.out.println("Please enter a number greater than 0.");
+				}
 			} catch (InputMismatchException e) {
-				System.out.println("Invalid input!");
+				System.out.println("Invalid input! Please enter a valid number.");
 				s.next();
 			}
 		}
