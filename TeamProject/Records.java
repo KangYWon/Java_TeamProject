@@ -1,11 +1,21 @@
 package TeamProject;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Scanner;
 
 public class Records {
     private static Records records;
-    private int totalScore;
+    private int totalScore, maxScore;
+    private List<String> incorrectAnswers;
+    private static final String FILE_NAME = "records.txt";
 
     private Records() {
         totalScore = 0;
+        maxScore = 0;
+        incorrectAnswers = new ArrayList<>();
+        loadRecords(); // load the previous records when the program starts
     }
 
     public static Records createRecords() {
@@ -13,5 +23,73 @@ public class Records {
         return records;
     }
 
-    // 라운드 별 점수와 틀린 문제 저장
+    public void addIncorrectAnswer(String question) {
+        incorrectAnswers.add(question);
+        saveRecords();
+    }
+    
+    public void displayRecords() {
+        System.out.println("Total Score: " + totalScore);
+        System.out.println("Max Score in 30 secs: " + maxScore);
+        if (incorrectAnswers.isEmpty()) {
+            System.out.println("No incorrect answers recorded.");
+        } else {
+            System.out.println("Incorrect Answers:");
+            for (String question : incorrectAnswers) {
+                System.out.println(question);
+            }
+        }
+    }
+
+    public void addScore(int score) {
+        totalScore += score;
+        saveRecords();
+    }
+
+    public void updateScore(int score) {
+        if (score > maxScore) maxScore = score;
+    }
+
+    public int getTotalScore() {
+        return totalScore;
+    }
+    
+    public void clearRecords() {
+    	totalScore = 0;
+        incorrectAnswers.clear();
+        saveRecords();
+    }
+    
+    public boolean hasData() {
+        return !incorrectAnswers.isEmpty();
+    }
+    
+    void saveRecords() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME))) {
+            writer.write("TotalScore: " + totalScore + "\n");
+            for (String question : incorrectAnswers) {
+                writer.write(question + "\n");
+            }
+        } catch (IOException e) {
+            System.out.println("Error saving records: " + e.getMessage());
+        }
+    }
+    
+    private void loadRecords() {
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
+            String line = reader.readLine();
+            if (line != null && line.startsWith("TotalScore:")) {
+                totalScore = Integer.parseInt(line.split(":")[1].trim());
+            }
+            while ((line = reader.readLine()) != null) {
+                incorrectAnswers.add(line);
+            }
+        } catch (IOException e) {
+            System.out.println("Error loading records: " + e.getMessage());
+        }
+    }
+
+    public List<String> getIncorrectAnswers() {
+        return incorrectAnswers;
+    }
 }

@@ -5,13 +5,18 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class AgainSolve {
-
+    private static AgainSolve againSolve;
     private Map<String, Arithmetic> operations;
     private Records records;
 
-    public AgainSolve(Map<String, Arithmetic> operations, Records records) {
+    public AgainSolve(Map<String, Arithmetic> operations, Records records) { 
         this.operations = operations;
         this.records = records;
+    }
+
+    public static AgainSolve createAS(Map<String, Arithmetic> operations, Records records) {
+        if (againSolve == null) againSolve = new AgainSolve(operations, records);
+        return againSolve;
     }
 
     public void solveIncorrectProblems() {
