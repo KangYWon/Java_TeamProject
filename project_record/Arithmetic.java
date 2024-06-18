@@ -1,4 +1,4 @@
-package TeamProject;
+package project_record;
 import java.util.*;
 
 public abstract class Arithmetic implements ArithmeticOperation{

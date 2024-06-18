@@ -1,4 +1,4 @@
-package TeamProject;
+package project_record;
 import java.util.*;
 
 public class GameMenu implements Game {
@@ -15,21 +15,23 @@ public class GameMenu implements Game {
         operations.put("*", new Multiplication());
         operations.put("/", new Division());
 
-        records = Records.createRecords();
-        againSolve = new AgainSolve(operations, records);
+		// create singleton objects
+        records = Records.createRecords(); 
+        againSolve = AgainSolve.createAS(operations, records);
     }
 	
-	@Override
 	public void start() {
+		GameRound gameRound = new GameRound(records);
 		operations = new HashMap<>();
 		
 		while(true) {
 			System.out.println("-----------Game Start!-----------");
-			System.out.println("[1] Add\n[2] Subtract\n[3] Multiplication\n[4] Divide\n[5] View Records\n[6] Again solve\n[0] Exit");
+			System.out.println("[1] Add\n[2] Subtract\n[3] Multiplication\n[4] Divide\n[5] Random Time Attack\n[6] View Records\n[7] Again solve\n[0] Exit");
 			System.out.println("Choose an operation: ");
 			int choice = s.nextInt();
+			System.out.println();
 			
-			if (choice == 5) {
+			if (choice == 6) {
 				records.displayRecords();
 				if (records.hasData()) {
 					System.out.println("Are you sure you want to clear all records? (yes/no)");
@@ -48,46 +50,19 @@ public class GameMenu implements Game {
 				continue;
 			}
 			
-			if(choice == 6) {
-				 againSolve.solveIncorrectProblems();
+			if (choice == 7) {
+				againSolve.solveIncorrectProblems();
+				continue;
 			}
 			
-			if(choice ==0) {
+			if (choice == 0) {
 				System.out.println("Exiting the Game.");
 				System.out.println("Your total score: "+ totalScore);
 				System.out.println("GOOD BYE~");
 				break;
 			}
-			Arithmetic arithmetic;
-			switch(choice) {
-			case 1:
-				arithmetic = new Addition();
-				break;
-			case 2: 
-				arithmetic = new Subtraction();
-				break;
-			case 3:
-				arithmetic = new Multiplication();
-				break;
-			case 4:
-				arithmetic = new Division();
-				break;
-				
-			default:
-				System.out.println("Invalid choide!!");
-				continue;
-	
-			}
 			
-			GameRound gameRound = new GameRound(records, choice);
-			int score = gameRound.play();
-			totalScore += score;
-			records.addScore(score);
-			System.out.println("Current total score: "+ totalScore);
+			gameRound.play(choice);
 		}
-	}
-	@Override
-	public void saveRecords() {
-		// records implementation 저장
 	}
 }
