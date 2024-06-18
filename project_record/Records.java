@@ -1,4 +1,4 @@
-package TeamProject;
+package project_record;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -7,14 +7,15 @@ import java.util.Scanner;
 
 public class Records {
     private static Records records;
-    private int totalScore;
+    private int totalScore, maxScore;
     private List<String> incorrectAnswers;
     private static final String FILE_NAME = "records.txt";
 
     private Records() {
         totalScore = 0;
+        maxScore = 0;
         incorrectAnswers = new ArrayList<>();
-        loadRecords();
+        loadRecords(); // load the previous records when the program starts
     }
 
     public static Records createRecords() {
@@ -28,6 +29,8 @@ public class Records {
     }
     
     public void displayRecords() {
+        System.out.println("Total Score: " + totalScore);
+        System.out.println("Max Score in 30 secs: " + maxScore);
         if (incorrectAnswers.isEmpty()) {
             System.out.println("No incorrect answers recorded.");
         } else {
@@ -36,12 +39,15 @@ public class Records {
                 System.out.println(question);
             }
         }
-        System.out.println("Total Score: " + totalScore);
     }
 
     public void addScore(int score) {
         totalScore += score;
         saveRecords();
+    }
+
+    public void updateScore(int score) {
+        if (score > maxScore) maxScore = score;
     }
 
     public int getTotalScore() {

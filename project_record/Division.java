@@ -1,4 +1,4 @@
-package TeamProject;
+package project_record;
 
 public class Division extends Arithmetic {
     @Override

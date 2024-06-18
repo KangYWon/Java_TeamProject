@@ -1,4 +1,4 @@
-package TeamProject;
+package project_record;
 
 //project interface
 public interface ArithmeticOperation {
