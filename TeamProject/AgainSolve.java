@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Scanner;
 
+// AgainSolve class: solve incorrect problem function
 public class AgainSolve {
     private static AgainSolve againSolve;
     private Map<String, Arithmetic> operations;
@@ -14,11 +15,13 @@ public class AgainSolve {
         this.records = records;
     }
 
+    // Create AgainSolve object with Singleton pattern
     public static AgainSolve createAS(Map<String, Arithmetic> operations, Records records) {
         if (againSolve == null) againSolve = new AgainSolve(operations, records);
         return againSolve;
     }
 
+    // Solve again incorrect problem
     public void solveIncorrectProblems() {
         Scanner scanner = new Scanner(System.in);
         for (Iterator<String> iterator = records.getIncorrectAnswers().iterator(); iterator.hasNext();) {
