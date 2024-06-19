@@ -9,7 +9,8 @@ public class GameRound {
 	private Scanner s = new Scanner(System.in);
 	Random random = new Random();
 	int problemCnt, correctAnswers;
-	
+
+	// set operation type per case
 	public void setArithmetic(int operationNum) {
 		switch(operationNum) {
 			case 1:
@@ -30,11 +31,13 @@ public class GameRound {
 		}
 	}
 
+	// GameRound Consturctor
 	public GameRound(Records records) {
 		this.records = records;
 		totalScore = records.getTotalScore();
 	}
-	
+
+	// play method: show the problem and calculate score
 	public void play(int operationNum) {
 		List<Integer> wrongAnswers = new ArrayList<>();
 		boolean isRandom = false;
@@ -60,6 +63,7 @@ public class GameRound {
 			}
 		}
 
+		// 10 random problem
 		if (isRandom) {
 			wrongAnswers = randomly(digits, wrongAnswers);
 			correctAnswers = problemCnt - wrongAnswers.size();
@@ -75,12 +79,14 @@ public class GameRound {
         if (!wrongAnswers.isEmpty()) {
             System.out.println("Wrong question numbers: " + wrongAnswers);
 		}
+		//calculate score
 		score = correctAnswers * 10;
 		totalScore += score;
 		records.addScore(score);
 		System.out.println("Current total score: " + totalScore);
 	}
 
+	// orderly method: show problem and confirm the correct answers
 	public List<Integer> orderly (int digits, List<Integer> wrongAnswers) {
 		for(int i=1; i<=10; i++) {
 			int a = arithmetic.generateQuestion(digits);
@@ -109,6 +115,7 @@ public class GameRound {
 		return wrongAnswers;
 	}
 
+	// randomly method: show problem and confirm the correct answers
 	public List<Integer> randomly (int digits, List<Integer> wrongAnswers) {
 		problemCnt = 0;
 		long start = System.currentTimeMillis();
