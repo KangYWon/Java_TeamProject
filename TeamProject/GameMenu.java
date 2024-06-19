@@ -7,7 +7,8 @@ public class GameMenu implements Game {
 	private Map<String, Arithmetic> operations;
 	private AgainSolve againSolve;
 	private Records records;
-	
+
+	// GameMenu Constructor
 	public GameMenu() {
         operations = new HashMap<>();
         operations.put("+", new Addition());
@@ -15,11 +16,12 @@ public class GameMenu implements Game {
         operations.put("*", new Multiplication());
         operations.put("/", new Division());
 
-		// create singleton objects
+	// create singleton objects
         records = Records.createRecords(); 
         againSolve = AgainSolve.createAS(operations, records);
     }
 	
+	// start method : show Game menu, choose number
 	public void start() {
 		GameRound gameRound = new GameRound(records);
 		operations = new HashMap<>();
@@ -30,8 +32,9 @@ public class GameMenu implements Game {
 			System.out.println("Choose an operation: ");
 			int choice = s.nextInt();
 			System.out.println();
-			
+
 			if (choice == 6) {
+				// display and save the record file, clear records
 				records.displayRecords();
 				if (records.hasData()) {
 					System.out.println("Are you sure you want to clear all records? (yes/no)");
@@ -51,18 +54,20 @@ public class GameMenu implements Game {
 			}
 			
 			if (choice == 7) {
+				// solve again incorrect problem
 				againSolve.solveIncorrectProblems();
 				continue;
 			}
 			
 			if (choice == 0) {
+				// exit the game
 				System.out.println("Exiting the Game.");
 				System.out.println("Your total score: "+ totalScore);
 				System.out.println("GOOD BYE~");
 				break;
 			}
 			
-			gameRound.play(choice);
+			gameRound.play(choice); // play the choice game round
 		}
 	}
 }
