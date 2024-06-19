@@ -110,11 +110,12 @@ public class GameRound {
 	}
 
 	public List<Integer> randomly (int digits, List<Integer> wrongAnswers) {
-		problemCnt = 1;
+		problemCnt = 0;
 		long start = System.currentTimeMillis();
 		long end = start + 30 * 1000;
 
 		while(System.currentTimeMillis() < end) {
+			problemCnt++;
 			int a = arithmetic.generateQuestion(digits);
 			int b = arithmetic.generateQuestion(digits);
 			String operator = arithmetic.getOperator();
@@ -136,7 +137,7 @@ public class GameRound {
                 String question = String.format("%d %s %d", a, operator, b);
 				records.addIncorrectAnswer(question);
             }
-			problemCnt++;
+			
 		}
 
 		return wrongAnswers;
