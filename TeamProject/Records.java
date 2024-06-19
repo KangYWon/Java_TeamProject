@@ -18,16 +18,19 @@ public class Records {
         loadRecords(); // load the previous records when the program starts
     }
 
+    // Create Records object with Singleton pattern
     public static Records createRecords() {
         if (records == null) records = new Records();
         return records;
     }
 
+    // Add incorrect problem
     public void addIncorrectAnswer(String question) {
         incorrectAnswers.add(question);
         saveRecords();
     }
-    
+
+    // Display records
     public void displayRecords() {
         System.out.println("Total Score: " + totalScore);
         System.out.println("Max Score in 30 secs: " + maxScore);
@@ -41,11 +44,13 @@ public class Records {
         }
     }
 
+    // Add and save score from total score
     public void addScore(int score) {
         totalScore += score;
         saveRecords();
     }
 
+    // Update max score
     public void updateScore(int score) {
         if (score > maxScore) maxScore = score;
     }
@@ -53,7 +58,8 @@ public class Records {
     public int getTotalScore() {
         return totalScore;
     }
-    
+
+    // Update saved records clear
     public void clearRecords() {
     	totalScore = 0;
         incorrectAnswers.clear();
@@ -63,7 +69,8 @@ public class Records {
     public boolean hasData() {
         return !incorrectAnswers.isEmpty();
     }
-    
+
+    // Save records to file
     void saveRecords() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME))) {
             writer.write("TotalScore: " + totalScore + "\n");
@@ -74,7 +81,8 @@ public class Records {
             System.out.println("Error saving records: " + e.getMessage());
         }
     }
-    
+
+    // Load records file
     private void loadRecords() {
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
             String line = reader.readLine();
